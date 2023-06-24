@@ -65,16 +65,21 @@ export default [
         path: '/animations/:id/edit',
         handler: ({ params }, res) => res.render(
             'animation/edit',
-            { fields: fileAnime.read()[params.id] }
+            {
+                fields: fileAnime.read()[params.id]
+
+            }
         )
     },
     {
         method: 'post',
-        path: '/animations/:id',
-        // view: 'animation/index',
-        // handler: function (req, res, next) {
-        //     res.send('Hello World!');
-        //     next()
-        // }
+        path: '/animations',
+        handler: function (req, res, next) {
+            const data = fileAnime.read();
+            const id = Math.max(...Object.keys(data)) + 1;
+            data[id] = req.body;
+            fileAnime.write(data);
+            res.send('animacion creada');
+        }
     }
 ];

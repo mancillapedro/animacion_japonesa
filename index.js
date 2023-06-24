@@ -7,8 +7,10 @@ const __dirname = new URL('./', import.meta.url).pathname;
 const app = express();
 const port = 3000;
 
-app.use(router);
 app.use(express.static(`${__dirname}/public`));
+app.use(express.json());
+
+app.use(router);
 
 hbs.registerPartials(__dirname + '/src/views/partials');
 hbs.registerHelper('concat', (...args) => args.filter(arg => typeof arg != "object").join(''));
