@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    {{> core/styles}}
+    <title>
+        {{#if title}}
+        {{title}}
+        {{else}}
+        Animación Japonesa Page
+        {{/if}}
+    </title>
+</head>
+
+<body
+    class="min-vh-100 d-flex flex-column text-body-emphasis text-capitalize"
+    data-bs-theme="dark"
+>
+    {{> core/header }}
+    {{> @partial-block }}
+    {{> core/footer}}
+    {{> core/scripts}}
+</body>
+
+</html>
