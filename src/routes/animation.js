@@ -79,7 +79,16 @@ export default [
             const id = Math.max(...Object.keys(data)) + 1;
             data[id] = req.body;
             fileAnime.write(data);
-            res.send('animacion creada');
+            res.json({ id, ...req.body });
+        }
+    }, {
+        method: 'delete',
+        path: '/animations/:id',
+        handler: ({ params }, res) => {
+            const { [params.id]: removedAnimation, ...restData } = fileAnime.read();
+            console.log(removedAnimation, restData);
+            fileAnime.write(restData);
+            res.json(removedAnimation);
         }
     }
 ];
