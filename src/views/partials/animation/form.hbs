@@ -1,0 +1,17 @@
+<section class="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+    <form class="col">
+        {{#each fields}}
+        <div class="form-floating mb-3 ">
+            <input
+                type="text"
+                class="form-control"
+                id="{{@key}}"
+                placeholder=""
+                value="{{this}}"
+            >
+            <label for="{{@key}}">{{@key}}</label>
+        </div>
+        {{/each}}
+        <button type="submit">btnsubmit</button>
+    </form>
+</section>

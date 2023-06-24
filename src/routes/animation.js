@@ -15,7 +15,7 @@ export default [
             'animation/index',
             {
                 title: 'All Japanese Animations',
-                content: Object.entries(fileAnime.read()).map((item) => ({ id: item[0], ...item[1] }))
+                content: fileAnime.read()
             }
         )
     },
@@ -26,7 +26,13 @@ export default [
             res.render(
                 'animation/new',
                 {
-                    title: 'New Japanese Animation Page'
+                    title: 'New Japanese Animation Page',
+                    fields: {
+                        nombre: null,
+                        genero: null,
+                        año: null,
+                        autor: null
+                    }
                 }
             );
         }
@@ -57,14 +63,10 @@ export default [
     {
         method: 'get',
         path: '/animations/:id/edit',
-        view: 'animation/edit',
-        params: {
-            scripts: [],
-            title: 'Home Page Japanese Animation',
-        },
-        handler: function (req, res) {
-            res.render(this.view, { ...this.params });
-        }
+        handler: ({ params }, res) => res.render(
+            'animation/edit',
+            { fields: fileAnime.read()[params.id] }
+        )
     },
     {
         method: 'post',
