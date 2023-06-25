@@ -1,11 +1,5 @@
-import fs from 'fs';
-const fileAnime = (() => {
-    const file = () => new URL('./../assets/json/anime.json', import.meta.url).pathname;
-    return {
-        read: () => JSON.parse(fs.readFileSync(file(), 'utf8')),
-        write: (data) => fs.writeFileSync(file(), JSON.stringify(data), 'utf8')
-    };
-})();
+import fileAnime from '../assets/js/fileAnime.js';
+import validateFields from '../assets/js/validateFields.js';
 
 export default [
     {
@@ -37,18 +31,18 @@ export default [
             );
         }
     },
-    {
-        method: 'get',
-        path: '/animations/search',
-        view: 'animation/show',
-        params: {
-            title: 'Home Page Japanese Animation',
-        },
-        handler: function (req, res) {
-            req.query.q = req.query.q || '';
-            res.render(this.view, { ...this.params });
-        }
-    },
+    // {
+    //     method: 'get',
+    //     path: '/animations/search',
+    //     view: 'animation/show',
+    //     params: {
+    //         title: 'Home Page Japanese Animation',
+    //     },
+    //     handler: function (req, res) {
+    //         req.query.q = req.query.q || '';
+    //         res.render(this.view, { ...this.params });
+    //     }
+    // },
     {
         method: 'get',
         path: '/animations/:id',
@@ -74,21 +68,48 @@ export default [
     {
         method: 'post',
         path: '/animations',
-        handler: function (req, res, next) {
-            const data = fileAnime.read();
-            const id = Math.max(...Object.keys(data)) + 1;
-            data[id] = req.body;
+        handler: ({ body }, res) => {
+            const validatedBody = validateFields(body, ['nombre', 'genero', 'año', 'autor']);
+            if (validatedBody.errors) return res.json(validatedBody);
+
+            const
+                data = fileAnime.read(),
+                id = Math.max(...Object.keys(data)) + 1;
+
+            data[id] = validatedBody;
             fileAnime.write(data);
-            res.json({ id, ...req.body });
+            res.json({ id, ...data[id] });
         }
-    }, {
+    },
+    {
         method: 'delete',
-        path: '/animations/:id',
-        handler: ({ params }, res) => {
-            const { [params.id]: removedAnimation, ...restData } = fileAnime.read();
-            console.log(removedAnimation, restData);
+        path: '/animations',
+        handler: ({ body }, res) => {
+            const validatedBody = validateFields(body, ['id']);
+            if (validatedBody.errors) return res.json(validatedBody);
+
+            const
+                { id } = validatedBody,
+                { [id]: removedAnimation, ...restData } = fileAnime.read();
+
             fileAnime.write(restData);
-            res.json(removedAnimation);
+            res.json({ id, ...removedAnimation });
+        }
+    },
+    {
+        method: 'put',
+        path: '/animations',
+        handler: ({ body }, res) => {
+            const validatedBody = validateFields(body);
+            if (validatedBody.errors) return res.json(validatedBody);
+
+            const
+                data = fileAnime.read(),
+                { id, ...restBody } = validatedBody;
+
+            data[id] = restBody;
+            fileAnime.write(data);
+            res.json(validatedBody);
         }
     }
 ];
