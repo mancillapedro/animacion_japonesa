@@ -34,7 +34,7 @@ export default (body, fields = Object.keys(validations)) => {
         validatedFields = {};
 
     for (const field of fields) {
-        if (!validations[field]) continue;
+        if (!validations[field]) throw new Error(`undefined validation for field ${field}`);
         try { validatedFields[field] = validations[field](body[field]); }
         catch (e) { errors[field] = e.message; }
     }
