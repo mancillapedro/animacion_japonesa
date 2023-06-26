@@ -22,7 +22,9 @@
     data-bs-theme="dark"
 >
     {{> core/header }}
-    {{> @partial-block }}
+    <main class="container flex-grow-1 d-flex flex-column py-5">
+        {{> @partial-block }}
+    </main>
     {{> core/footer}}
     {{> core/scripts}}
 </body>

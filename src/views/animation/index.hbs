@@ -1,71 +1,69 @@
 {{#> core/main}}
-<main class="container mb-auto text-body-en">
-    <header class="d-flex flex-column flex-md-row align-items-end my-5">
-        <h1 class="me-auto">Listado de animaciones</h1>
-        <a
-            href="/animations/new"
-            class="btn btn-primary btn-sm fw-bold icon-link mt-5 mt-md-0 me-4 me-md-0"
-        >agregar animación
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-plus-circle"
-                viewBox="0 0 16 16"
-            >
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                <path
-                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-                />
-            </svg>
-        </a>
-    </header>
-    <section class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-        {{#each content}}
-        <article>
-            <div class="card">
-                <div class="card-header">
-                    ID
-                    <span class="fw-semibold text-body-emphasis">
-                        {{@key}}
-                    </span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-3 fw-bold text-body-emphasis"> {{nombre}}</h5>
-                    {{!-- <h6 class="card-subtitle mb-2 text-body-secondary"></h6> --}}
-                    <p class="card-text mb-1">
-                        Genero:
-                        <span class="fw-semibold text-body-emphasis">
-                            {{genero}}
-                        </span>
-                    </p>
-                    <p class="card-text mb-1">
-                        Año:
-                        <span class="fw-semibold text-body-emphasis">
-                            {{año}}
-                        </span>
-                    </p>
-                    <p class="card-text">
-                        Autor:
-                        <span class="fw-semibold text-body-emphasis">
-                            {{autor}}
-                        </span>
-                    </p>
-                </div>
-                <div class="card-footer d-flex justify-content-between ">
-                    <a
-                        href="#"
-                        class="btn btn-outline-danger btn-sm"
-                    >Eliminar</a>
-                    <a
-                        href="/animations/{{@key}}/edit"
-                        class="btn btn-outline-primary btn-sm"
-                    >Editar</a>
-                </div>
+<header class="d-flex flex-column flex-md-row align-items-end">
+    <h1 class="me-auto">Listado de animaciones</h1>
+    <a
+        href="/animations/new"
+        class="btn btn-primary btn-sm fw-bold icon-link mt-5 mt-md-0 me-4 me-md-0"
+    >agregar animación
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-circle"
+            viewBox="0 0 16 16"
+        >
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+            />
+        </svg>
+    </a>
+</header>
+<section class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 my-4">
+    {{#each content}}
+    <article class="col">
+        <div class="card">
+            <div class="card-header">
+                ID
+                <span class="fw-semibold text-body-emphasis">
+                    {{@key}}
+                </span>
             </div>
-        </article>
-        {{/each}}
-    </section>
-</main>
+            <div class="card-body">
+                <h5 class="card-title mb-3 fw-bold text-body-emphasis"> {{nombre}}</h5>
+                {{!-- <h6 class="card-subtitle mb-2 text-body-secondary"></h6> --}}
+                <p class="card-text mb-1">
+                    Genero:
+                    <span class="fw-semibold text-body-emphasis">
+                        {{genero}}
+                    </span>
+                </p>
+                <p class="card-text mb-1">
+                    Año:
+                    <span class="fw-semibold text-body-emphasis">
+                        {{año}}
+                    </span>
+                </p>
+                <p class="card-text">
+                    Autor:
+                    <span class="fw-semibold text-body-emphasis">
+                        {{autor}}
+                    </span>
+                </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between ">
+                <a
+                    href="#"
+                    class="btn btn-outline-danger btn-sm"
+                >Eliminar</a>
+                <a
+                    href="/animations/{{@key}}/edit"
+                    class="btn btn-outline-primary btn-sm"
+                >Editar</a>
+            </div>
+        </div>
+    </article>
+    {{/each}}
+</section>
 {{/core/main}}
