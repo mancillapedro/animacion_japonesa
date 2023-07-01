@@ -1,17 +1,40 @@
 <section class="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
-    <form class="col">
+    <form
+        class="col"
+        id="formAnimation"
+    >
         {{#each fields}}
         <div class="form-floating mb-3 ">
+
             <input
+                {{#if
+                (keyIsYear
+                @key)}}
+                type="number"
+                min="1800"
+                {{else}}
                 type="text"
+                {{/if}}
                 class="form-control"
                 id="{{@key}}"
                 placeholder=""
                 value="{{this}}"
             >
-            <label for="{{@key}}">{{@key}}</label>
+            <label
+                for="{{@key}}"
+                class="text-capitalize"
+            >{{@key}}</label>
         </div>
         {{/each}}
-        <button type="submit">btnsubmit</button>
+        <div class="d-flex justify-content-between">
+            <button
+                type="reset"
+                class="btn btn-outline-success"
+            >Restaurar campos</button>
+            <button
+                type="submit"
+                class="btn btn-outline-primary"
+            >{{btnSubmit}} animación</button>
+        </div>
     </form>
 </section>

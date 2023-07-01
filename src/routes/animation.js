@@ -9,6 +9,7 @@ export default [
             'animation/index',
             {
                 title: 'All Japanese Animations',
+                scripts: ['/assets/js/pages/animations/index.js'],
                 content: fileAnime.read()
             }
         )
@@ -21,6 +22,7 @@ export default [
                 'animation/new',
                 {
                     title: 'New Japanese Animation Page',
+                    scripts: ['/assets/js/pages/animations/new.js'],
                     fields: {
                         nombre: null,
                         genero: null,

@@ -18,7 +18,10 @@ const validations = {
         const
             MIN_YEAR = 1800,
             MAX_YEAR = new Date().getFullYear();
-        if (!(Number(year) > MIN_YEAR && Number(year) < MAX_YEAR))
+        if (!(
+            Number(year) > MIN_YEAR
+            // && Number(year) < MAX_YEAR
+        ))
             throw new Error('año no valido');
         return Number(year);
     },

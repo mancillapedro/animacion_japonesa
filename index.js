@@ -14,6 +14,7 @@ app.use(router);
 
 hbs.registerPartials(__dirname + '/src/views/partials');
 hbs.registerHelper('concat', (...args) => args.filter(arg => typeof arg != "object").join(''));
+hbs.registerHelper('keyIsYear', key => key == "año");
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/src/views');
