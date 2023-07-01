@@ -1,3 +1,29 @@
 <footer class="text-center bg-secondary">
-    --- AJ ---
+    {{#if query.success}}
+    <div
+        class="container alert alert-success alert-dismissible fade show fixed-bottom"
+        role="alert"
+    >
+        Acción realizada con éxito
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+        ></button>
+    </div>
+    {{else if query.error}}
+    <div
+        class="container alert alert-danger alert-dismissible fade show fixed-bottom"
+        role="alert"
+    >
+        ¡Ocurrió un error en la acción realizada!
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+        ></button>
+    </div>
+    {{/if}}
 </footer>

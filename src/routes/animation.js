@@ -5,12 +5,13 @@ export default [
     {
         method: 'get',
         path: '/animations',
-        handler: (_, res) => res.render(
+        handler: ({ query }, res) => res.render(
             'animation/index',
             {
                 title: 'All Japanese Animations',
                 scripts: ['/assets/js/pages/animations/index.js'],
-                content: fileAnime.read()
+                content: fileAnime.read(),
+                query
             }
         )
     },

@@ -1,11 +1,30 @@
-const modalBodyContent = (name, id) => `
+const
+    modalBodyContent = (name, id) => `
     Esta acción eliminara la animación <em class="fw-bold">${name}</em> de id <em class="fw-bold">${id}</em>
     <p class="my-3">¿Desea continuar?</p>
-`;
+`,
+    deleteAnimation = async (body) => {
+        try {
+            const response = await fetch(
+                `${window.location.origin}/animations`,
+                {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body
+                }
+            );
+            if (!response.ok) throw "Error en conexión con la api";
+            return await response.json();
+        }
+        catch ({ message }) {
+            console.log(message);
+            return message;
+        }
+
+    };
 
 addEventListener('DOMContentLoaded', (e) => {
     const
-        location = window.location,
         modal = document.querySelector('#modalDelete'),
         modalBody = modal.querySelector('.modal-body'),
         buttonConfirmDelete = modal.querySelector(`[data-delete-confirm]`),
@@ -26,15 +45,9 @@ addEventListener('DOMContentLoaded', (e) => {
         ({ target }) => {
             modal.querySelectorAll('button').forEach(button => button.disabled = true);
             spinner.classList.remove('d-none');
-
-            fetch(
-                `${location.origin}/animations`,
-                {
-                    method: "DELETE",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id: Number(target.dataset.animationId) })
-                }
-            ).then(response => response.ok && setTimeout(() => location.reload(), 1500));
+            const body = JSON.stringify({ id: Number(target.dataset.animationId) });
+            deleteAnimation(body)
+                .then(() => setTimeout(() => window.location.search = 'success=delete', 3000));
         }
 
     );
