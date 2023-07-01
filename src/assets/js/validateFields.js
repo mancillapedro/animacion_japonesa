@@ -1,11 +1,4 @@
-import fileAnime from "./fileAnime.js";
-
 const validations = {
-    "id": (id) => {
-        const validId = Object.keys(fileAnime.read()).some(_id => Number(_id) == Number(id));
-        if (!validId) throw new Error("id no valido");
-        return Number(id);
-    },
     "nombre": (nombre) => {
         if (!String(nombre).trim()) throw new Error("nombre invalido");
         return String(nombre);
@@ -18,10 +11,10 @@ const validations = {
         const
             MIN_YEAR = 1800,
             MAX_YEAR = new Date().getFullYear();
-        if (!(
-            Number(year) > MIN_YEAR
-            // && Number(year) < MAX_YEAR
-        ))
+        if (
+            Number(year) < MIN_YEAR
+            // !! Number(year) < MAX_YEAR
+        )
             throw new Error('año no valido');
         return Number(year);
     },

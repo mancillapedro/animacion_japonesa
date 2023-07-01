@@ -1,6 +1,8 @@
 import fileAnime from '../assets/js/fileAnime.js';
 import validateFields from '../assets/js/validateFields.js';
 
+const validId = id => Object.keys(fileAnime.read()).some(_id => Number(_id) == Number(id));
+
 export default [
     {
         method: 'get',
@@ -18,34 +20,20 @@ export default [
     {
         method: 'get',
         path: '/animations/new',
-        handler: (req, res) => {
-            res.render(
-                'animation/new',
-                {
-                    title: 'New Japanese Animation Page',
-                    scripts: ['/assets/js/pages/animations/new.js'],
-                    fields: {
-                        nombre: null,
-                        genero: null,
-                        año: null,
-                        autor: null
-                    }
+        handler: (req, res) => res.render(
+            'animation/new',
+            {
+                title: 'New Japanese Animation Page',
+                scripts: ['/assets/js/pages/animations/new.js'],
+                fields: {
+                    nombre: null,
+                    genero: null,
+                    año: null,
+                    autor: null
                 }
-            );
-        }
+            }
+        )
     },
-    // {
-    //     method: 'get',
-    //     path: '/animations/search',
-    //     view: 'animation/show',
-    //     params: {
-    //         title: 'Home Page Japanese Animation',
-    //     },
-    //     handler: function (req, res) {
-    //         req.query.q = req.query.q || '';
-    //         res.render(this.view, { ...this.params });
-    //     }
-    // },
     {
         method: 'get',
         path: '/animations/:id',
@@ -81,38 +69,39 @@ export default [
 
             data[id] = validatedBody;
             fileAnime.write(data);
-            res.json({ id, ...data[id] });
+            return res.json({ id, ...data[id] });
         }
     },
     {
         method: 'delete',
         path: '/animations',
         handler: ({ body }, res) => {
-            const validatedBody = validateFields(body, ['id']);
-            if (validatedBody.errors) return res.json(validatedBody);
+            const id = Number(body["id"]);
+            if (!validId(id)) return res.json({ errors: { "id": "id no valido" } });
 
-            const
-                { id } = validatedBody,
-                { [id]: removedAnimation, ...restData } = fileAnime.read();
-
+            const { [id]: removedAnimation, ...restData } = fileAnime.read();
             fileAnime.write(restData);
-            res.json({ id, ...removedAnimation });
+            return res.json({ id, ...removedAnimation });
         }
     },
     {
         method: 'put',
         path: '/animations',
         handler: ({ body }, res) => {
-            const validatedBody = validateFields(body);
-            if (validatedBody.errors) return res.json(validatedBody);
-
+            let errors = {};
             const
-                data = fileAnime.read(),
-                { id, ...restBody } = validatedBody;
+                id = Number(body["id"]),
+                validatedBody = validateFields(body);
 
-            data[id] = restBody;
+            if (!validId(id)) errors['id'] = "id no valido";
+            if (validatedBody.errors) errors = { ...errors, ...validatedBody.errors };
+            if (Object.keys(errors).length) return res.json({ errors });
+
+            const data = fileAnime.read();
+
+            data[id] = validatedBody;
             fileAnime.write(data);
-            res.json(validatedBody);
+            return res.json({ id, ...validatedBody });
         }
     }
 ];
