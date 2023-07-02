@@ -51,8 +51,8 @@ export default [
         handler: ({ params }, res) => res.render(
             'animation/edit',
             {
+                scripts: ['/assets/js/pages/animations/edit.js'],
                 fields: fileAnime.read()[params.id]
-
             }
         )
     },
