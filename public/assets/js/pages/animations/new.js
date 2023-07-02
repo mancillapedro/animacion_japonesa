@@ -23,7 +23,7 @@ addEventListener('DOMContentLoaded', () => {
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Agregando...`;
 
         !validatedBody.errors && animationAPI
-            .new(JSON.stringify(validatedBody))
+            .post(JSON.stringify(validatedBody))
             .then((res) =>
                 window.location.replace(`/animations?${res.errors ? "error" : "success"}=post`)
                 // setTimeout(() =>

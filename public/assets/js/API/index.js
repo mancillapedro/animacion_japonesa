@@ -17,7 +17,8 @@ export default (() => {
 
     return {
         delete: (body) => request("DELETE", body),
-        new: (body) => request("POST", body),
+        post: (body) => request("POST", body),
+        put: (body) => request("put", body),
     };
 })();
 
