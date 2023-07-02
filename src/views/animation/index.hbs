@@ -3,7 +3,7 @@
     <h1 class="me-auto">Listado de animaciones</h1>
     <a
         href="/animations/new"
-        class="btn btn-primary btn-sm fw-bold icon-link mt-4 mt-md-0"
+        class="btn btn-primary btn-sm fw-bold icon-link mt-4 mt-md-0 py-md-2 px-md-3"
     >Agregar animación
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -31,28 +31,32 @@
                 </span>
             </div>
             <div class="card-body">
-                <h5 class="card-title mb-3 fw-bold text-body-emphasis"> {{nombre}}</h5>
+                <h5 class="card-title fw-bold text-body-emphasis"> {{nombre}}</h5>
                 {{!-- <h6 class="card-subtitle mb-2 text-body-secondary"></h6> --}}
-                <p class="card-text mb-1">
-                    Genero:
-                    <span class="fw-semibold text-body-emphasis">
-                        {{genero}}
-                    </span>
-                </p>
-                <p class="card-text mb-1">
-                    Año:
-                    <span class="fw-semibold text-body-emphasis">
-                        {{año}}
-                    </span>
-                </p>
-                <p class="card-text">
-                    Autor:
-                    <span class="fw-semibold text-body-emphasis">
-                        {{autor}}
-                    </span>
-                </p>
+                <div class="ps-3 py-2">
+
+
+                    <p class="card-text mb-1">
+                        Genero:
+                        <span class="fw-semibold text-body-emphasis">
+                            {{genero}}
+                        </span>
+                    </p>
+                    <p class="card-text mb-1">
+                        Año:
+                        <span class="fw-semibold text-body-emphasis">
+                            {{año}}
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        Autor:
+                        <span class="fw-semibold text-body-emphasis">
+                            {{autor}}
+                        </span>
+                    </p>
+                </div>
             </div>
-            <div class="card-footer d-flex justify-content-between ">
+            <div class="card-footer d-flex justify-content-between py-3">
                 <button
                     type="button"
                     class="btn btn-outline-danger btn-sm"
@@ -66,8 +70,12 @@
                 >Eliminar</button>
                 <a
                     href="/animations/{{@key}}/edit"
-                    class="btn btn-outline-primary btn-sm"
+                    class="btn btn-outline-info btn-sm"
                 >Editar</a>
+                <a
+                    href="/animations/{{@key}}"
+                    class="btn btn-outline-primary btn-sm"
+                >Ver mas</a>
             </div>
         </div>
     </article>
