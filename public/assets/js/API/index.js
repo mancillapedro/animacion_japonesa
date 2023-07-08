@@ -2,7 +2,7 @@ export default (() => {
     const request = async (method, body) => {
         try {
             const response = await fetch(
-                `${window.location.origin}/animations`,
+                `${window.location.origin}/api/animations`,
                 {
                     headers: { "Content-Type": "application/json" },
                     method,

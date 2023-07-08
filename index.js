@@ -21,3 +21,5 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/src/views');
 
 app.listen(port, () => console.log(`escuchando en http://localhost:${port}`));
+
+export default app;

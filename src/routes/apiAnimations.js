@@ -6,59 +6,38 @@ const validId = id => Object.keys(fileAnime.read()).some(_id => Number(_id) == N
 export default [
     {
         method: 'get',
-        path: '/animations',
-        handler: ({ query }, res) => res.render(
-            'animation/index',
-            {
-                title: 'All Japanese Animations',
-                scripts: ['/assets/js/pages/animations/index.js'],
-                content: fileAnime.read(),
-                query
-            }
-        )
+        path: '/api/animations',
+        handler: (_, res) => res.json(fileAnime.read())
     },
     {
         method: 'get',
-        path: '/animations/new',
-        handler: (req, res) => res.render(
-            'animation/new',
-            {
-                title: 'New Japanese Animation Page',
-                scripts: ['/assets/js/pages/animations/new.js'],
-                fields: {
-                    nombre: null,
-                    genero: null,
-                    año: null,
-                    autor: null
-                }
-            }
-        )
+        path: '/api/animations/id/:id',
+        handler: ({ params }, res) => {
+            const animation = fileAnime.read()[params.id];
+
+            return (!!animation && res.json(animation)) ||
+                res.status(404).json({ errors: { id: 'Animación no encontrada' } });
+        }
     },
     {
         method: 'get',
-        path: '/animations/:id',
-        handler: ({ params }, res) => res.render(
-            'animation/show',
-            {
-                ...params,
-                ...fileAnime.read()[params.id]
-            }
-        )
-    },
-    {
-        method: 'get',
-        path: '/animations/:id/edit',
-        handler: ({ params }, res) => res.render(
-            'animation/edit',
-            {
-                scripts: ['/assets/js/pages/animations/edit.js'],
-                fields: fileAnime.read()[params.id]
-            }
-        )
+        path: '/api/animations/name/:name',
+        handler: ({ params }, res) => {
+            const
+                dataFile = fileAnime.read(),
+                regexp = new RegExp(params.name, 'i'),
+                animationsByName = Object.keys(dataFile).reduce((acc, id) => {
+                    regexp.test(dataFile[id].nombre) && acc.push({ id, ...dataFile[id] });
+                    return acc;
+                }, []);
+
+            return (!!animationsByName.length && res.json(animationsByName)) ||
+                res.status(404).json({ errors: { name: 'Animación no encontrada' } });
+        }
     },
     {
         method: 'post',
-        path: '/animations',
+        path: '/api/animations',
         handler: ({ body }, res) => {
             const validatedBody = validateFields(body, ['nombre', 'genero', 'año', 'autor']);
             if (validatedBody.errors) return res.json(validatedBody);
@@ -74,7 +53,7 @@ export default [
     },
     {
         method: 'delete',
-        path: '/animations',
+        path: '/api/animations',
         handler: ({ body }, res) => {
             const id = Number(body["id"]);
             if (!validId(id)) return res.json({ errors: { "id": "id no valido" } });
@@ -86,7 +65,7 @@ export default [
     },
     {
         method: 'put',
-        path: '/animations',
+        path: '/api/animations',
         handler: ({ body }, res) => {
             let errors = {};
             const

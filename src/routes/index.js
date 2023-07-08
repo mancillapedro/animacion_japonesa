@@ -1,5 +1,6 @@
 import { Router } from "express";
-import animationRoutes from "./animation.js";
+import animationsRoutes from "./animations.js";
+import apiAnimationsRoutes from "./animations.js";
 
 const appRouter = Router();
 
@@ -7,15 +8,15 @@ const appRouter = Router();
     {
         method: 'get',
         path: '/',
-        view: 'home/index',
-        params: {
-            title: 'Home Page Japanese Animation',
-        },
-        handler: function (req, res) {
-            res.render(this.view, this.params);
-        }
+        handler: (req, res) => res.render('home/index', { title: 'Home Page Japanese Animation' })
     },
-    ...animationRoutes,
+    ...animationsRoutes,
+    ...apiAnimationsRoutes,
+    {
+        method: 'get',
+        path: '*',
+        handler: (req, res) => res.render('notFound')
+    }
 ].forEach(route =>
     appRouter[route.method](
         route.path, (...args) => route.handler(...args)
