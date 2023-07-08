@@ -12,7 +12,11 @@ export default (() => {
             if (!response.ok) throw new Error("Error en conexión con la api");
             return await response.json();
         }
-        catch ({ message: requestError }) { return { errors: { requestError } }; }
+        catch ({ message: requestError }) {
+            console.log(requestError);
+
+            return { errors: { requestError } };
+        }
     };
 
     return {

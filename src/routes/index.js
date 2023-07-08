@@ -1,6 +1,6 @@
 import { Router } from "express";
 import animationsRoutes from "./animations.js";
-import apiAnimationsRoutes from "./animations.js";
+import apiAnimationsRoutes from "./apiAnimations.js";
 
 const appRouter = Router();
 
