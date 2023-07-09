@@ -57,11 +57,14 @@ export default [
         method: 'get',
         path: '/animations/name/:name',
         handler: ({ params }, res) => {
+            let someAnimation = false;
             const
                 dataFile = fileAnime.read(),
                 regexp = new RegExp(params.name, 'i'),
                 animationsByName = Object.keys(dataFile).reduce((acc, id) => {
-                    regexp.test(dataFile[id].nombre) && (acc[id] = dataFile[id]);
+                    regexp.test(dataFile[id].nombre)
+                        && (acc[id] = dataFile[id])
+                        && (someAnimation = true);
                     return acc;
                 }, {});
 
@@ -69,8 +72,8 @@ export default [
                 'animations/name',
                 {
                     scripts: ['/assets/js/pages/animations/name.js'],
-                    // ...params,
-                    content: animationsByName
+                    ...params,
+                    content: someAnimation ? animationsByName : null
                 }
             );
         }

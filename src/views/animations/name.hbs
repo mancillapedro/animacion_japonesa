@@ -1,4 +1,24 @@
-{{#> core/main title=(concat nombre " | Animación Japonesa") }}
+{{#> core/main title=(concat name " | Animación Japonesa") }}
+{{#if content}}
+<h1 class="">
+    Animación que contiene en nombre: {{name}}
+</h1>
+<section class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 my-3 my-sm-4 my-md-5 justify-content-center">
+    {{#each content}}
+    <article class="col">
+        {{> animations/card}}
+    </article>
+    {{/each}}
+</section>
+{{else}}
+<section class="my-auto text-center">
+    <h1 class="mb-5">
+        Ninguna animación encontrada que contenga en nombre: {{name}}
+    </h1>
+    <a href="/">Go to home</a>
+</section>
+{{/if}}
 
-{{> animations/cards}}
+
+
 {{/core/main}}

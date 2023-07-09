@@ -1,8 +1,6 @@
 {{#> core/main title=(concat nombre " | Animación Japonesa") }}
-
+{{#if animation}}
 <article class="text-center">
-
-    {{#if animation}}
     <h1>
         {{animation.nombre}}
     </h1>
@@ -12,10 +10,13 @@
         <li>Año: {{animation.año}}</li>
         <li>Autor: {{animation.autor}}</li>
     </ul>
-    {{else}}
-    <h1>
+</article>
+{{else}}
+<section class="my-auto text-center">
+    <h1 class="mb-5">
         Animación no encontrada
     </h1>
-    {{/if}}
-</article>
+    <a href="/">Go to home</a>
+</section>
+{{/if}}
 {{/core/main}}
