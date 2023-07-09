@@ -72,7 +72,7 @@ export default () => {
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Eliminando...`;
             const body = JSON.stringify({ id: Number(target.dataset.animationId) });
             animationAPI.delete(body)
-                .then(() => window.location.search = 'success=delete');
+                .then(() => window.location.href = '/animations?success=delete');
         }
     );
 };

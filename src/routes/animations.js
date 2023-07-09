@@ -38,6 +38,7 @@ export default [
             'animations/id',
             {
                 id: params.id,
+                scripts: ['/assets/js/pages/animations/id.js'],
                 animation: fileAnime.read()[params.id]
             }
         )
