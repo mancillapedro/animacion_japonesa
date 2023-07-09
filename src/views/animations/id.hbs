@@ -1,7 +1,8 @@
 {{#> core/main title=(concat nombre " | Animación Japonesa") }}
 {{#if animation}}
+
 <article class="text-center">
-    <h1>
+    <h1 class="my-4">
         {{animation.nombre}}
     </h1>
     <ul class="list-unstyled">
@@ -11,6 +12,20 @@
         <li>Autor: {{animation.autor}}</li>
     </ul>
 </article>
+<div class="d-flex justify-content-evenly py-3">
+    <button
+        type="button"
+        class="btn btn-outline-danger btn-sm"
+        data-bs-toggle="modal"
+        data-delete-name="{{animation.nombre}}"
+        data-delete-id="{{id}}"
+        data-bs-target="#modalDelete"
+    >Eliminar</button>
+    <a
+        href="/animations/{{id}}/edit"
+        class="btn btn-outline-info btn-sm"
+    >Editar</a>
+</div>
 {{else}}
 <section class="my-auto text-center">
     <h1 class="mb-5">

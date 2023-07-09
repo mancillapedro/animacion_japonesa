@@ -8,7 +8,10 @@ const appRouter = Router();
     {
         method: 'get',
         path: '/',
-        handler: (req, res) => res.render('home/index', { title: 'Home Page Japanese Animation' })
+        handler: (req, res) => res.render('home/index', {
+            title: 'Home Page Japanese Animation',
+            scripts: ['/assets/js/pages/home/index.js']
+        })
     },
     ...animationsRoutes,
     ...apiAnimationsRoutes,
