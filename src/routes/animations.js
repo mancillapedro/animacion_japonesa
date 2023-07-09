@@ -31,16 +31,49 @@ export default [
             }
         )
     },
+    // {
+    //     method: 'get',
+    //     path: '/animations/:id',
+    //     handler: ({ params }, res) => res.render(
+    //         'animations/show',
+    //         {
+    //             ...params,
+    //             ...fileAnime.read()[params.id]
+    //         }
+    //     )
+    // },
     {
         method: 'get',
-        path: '/animations/:id',
+        path: '/animations/id/:id',
         handler: ({ params }, res) => res.render(
-            'animations/show',
+            'animations/id',
             {
-                ...params,
-                ...fileAnime.read()[params.id]
+                id: params.id,
+                animation: fileAnime.read()[params.id]
             }
         )
+    },
+    {
+        method: 'get',
+        path: '/animations/name/:name',
+        handler: ({ params }, res) => {
+            const
+                dataFile = fileAnime.read(),
+                regexp = new RegExp(params.name, 'i'),
+                animationsByName = Object.keys(dataFile).reduce((acc, id) => {
+                    regexp.test(dataFile[id].nombre) && (acc[id] = dataFile[id]);
+                    return acc;
+                }, {});
+
+            res.render(
+                'animations/name',
+                {
+                    scripts: ['/assets/js/pages/animations/name.js'],
+                    // ...params,
+                    content: animationsByName
+                }
+            );
+        }
     },
     {
         method: 'get',
