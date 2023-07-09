@@ -12,8 +12,9 @@ const validations = {
             MIN_YEAR = 1800,
             MAX_YEAR = new Date().getFullYear();
         if (
+            isNaN(year) ||
             Number(year) < MIN_YEAR
-            // !! Number(year) < MAX_YEAR
+            // || Number(year) > MAX_YEAR
         )
             throw new Error('año no valido');
         return Number(year);

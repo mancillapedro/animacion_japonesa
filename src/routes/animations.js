@@ -31,17 +31,6 @@ export default [
             }
         )
     },
-    // {
-    //     method: 'get',
-    //     path: '/animations/:id',
-    //     handler: ({ params }, res) => res.render(
-    //         'animations/show',
-    //         {
-    //             ...params,
-    //             ...fileAnime.read()[params.id]
-    //         }
-    //     )
-    // },
     {
         method: 'get',
         path: '/animations/id/:id',

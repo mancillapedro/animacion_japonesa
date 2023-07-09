@@ -16,7 +16,9 @@ export default [
             const animation = fileAnime.read()[params.id];
 
             return (!!animation && res.json(animation)) ||
-                res.status(404).json({ errors: { id: 'Animación no encontrada' } });
+                res
+                    .status(404)
+                    .json({ errors: { id: 'Animación no encontrada' } });
         }
     },
     {
